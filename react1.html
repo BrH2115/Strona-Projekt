@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kolorowa Animacja Tekstu</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f8ff;
+        }
+
+        .kontakt-nazwa {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #333;
+            display: inline-block;
+        }
+
+        .kontakt-nazwa span {
+            display: inline-block;
+            color: #333; /* Domyślny kolor */
+        }
+    </style>
+</head>
+<body>
+    <h1 class="kontakt-nazwa">Skontaktuj się z nami</h1>
+    <script>
+        // Rozdziel tekst na pojedyncze litery
+        const textElement = document.querySelector('.kontakt-nazwa');
+        const text = textElement.textContent;
+        textElement.innerHTML = text.split('').map(letter => `<span>${letter}</span>`).join('');
+
+        // Animacja kolorowania tekstu
+        anime.timeline({
+            loop: true // Powtarzanie animacji w nieskończoność
+        })
+        .add({
+            targets: '.kontakt-nazwa span',
+            color: ['#333', '#ff0000'], // Zmiana koloru z domyślnego na czerwony
+            easing: 'easeInOutQuad',
+            duration: 1000,
+            delay: anime.stagger(100), // Opóźnienie między literami
+        })
+        .add({
+            targets: '.kontakt-nazwa span',
+            color: ['#ff0000', '#333'], // Powrót do domyślnego koloru
+            easing: 'easeInOutQuad',
+            duration: 1000,
+            delay: anime.stagger(100, { from: 'last' }), // Cofanie animacji od końca
+        });
+    </script>
+</body>
+</html>
